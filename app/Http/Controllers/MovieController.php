@@ -15,10 +15,10 @@ class MovieController extends Controller
 
         // Hit Api
 
-        $bannerResponse = Http::get("{$baseURL}/movie/popular",[
-        'api_key' => $apiKey,
+                $bannerResponse = Http::get("{$baseURL}/movie/popular",[
+                'api_key' => $apiKey,
 
-      ]);
+              ]);
 
       // Variable
             $bannerArray=[];
@@ -40,6 +40,34 @@ class MovieController extends Controller
             }
 
         }
+        // top movie hit API
+ $topMovieResponse = Http::get("{$baseURL}/movie/top_rated",[
+                'api_key' => $apiKey,
+
+              ]);
+
+
+    $topMovieArray=[];
+    $MAX_TOP_MOVIES= 6 ;
+
+
+     if ($topMovieResponse->successful()) {
+            $resultArray = $topMovieResponse-> object()->results;
+
+            if (isset($resultArray)){
+                //looping data
+                foreach ($resultArray as $item) {
+
+                    array_push($topMovieArray, $item);
+
+                  if (count ($topMovieArray) == $MAX_TOP_MOVIES ) {
+                    break ;
+
+                 }
+            }
+
+        }
+
 
 
         return view('home',[
@@ -47,8 +75,11 @@ class MovieController extends Controller
             'imageBaseUrl'=>$imageURL,
             'apiKey'=> $apiKey,
             'banner'=> $bannerArray,
+            'topMovies'=> $topMovieArray
+
         ]);
 
         }
     }
+  }
 }
