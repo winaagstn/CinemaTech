@@ -13,5 +13,12 @@ use App\Http\Controllers\MovieController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/',[ MovieController::class,'index']);
+
+
+Route::get('/Movies' , function () {
+    return view ('movies');
+});
+Route::get('/Movie' , function () {
+    return view ('movie');
+});
