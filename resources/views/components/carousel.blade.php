@@ -2,7 +2,6 @@
 
 <div id="default-carousel" class=" w-full relative " data-carousel="slide">
     <!-- Carousel wrapper -->
-
     <div class="sticky h-96  pb-26 overflow-hidden rounded-lg md:h-96 bg-slate-200">
     @foreach ($banner as $bannerItem )
              @php
@@ -10,7 +9,7 @@
              @endphp
         <!-- Item 1 -->
             <div class="hidden duration-700 ease-in-out" data-carousel-item="active" >
-              <img src="{{$bannerImage}}" class="absolute  w-full h-full  translate-x-3/4 -translate-y-3/4  top-3/4 -left-3/4 " />
+              <img src="{{$bannerImage}}" class="absolute  w-full h-full  translate-x-1/2 -translate-y-1/2  top-1/2 -left-1/2 " />
              <div class="absolute  w-full flex flex-col mt-10 ml-28 translate-x-1/2 -translate-y-1/2  top-1/2 -left-1/2  ">
                 <span class ="font-semibold font-[Montserrat] text text-xl text-white"> {{ $bannerItem->title }}</span>
                 <span class="font-light font-inter text-sm text-white w-1/2 line-clamp-3">{{$bannerItem->overview}} </span>
