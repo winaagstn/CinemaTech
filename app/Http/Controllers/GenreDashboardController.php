@@ -22,13 +22,12 @@ class GenreDashboardController extends Controller
  
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'GenreName' => 'required|max:255', 
   
         ]);
 
-        // Simpan data genre baru
+      
         genreDashboard::create([
             'GenreName' => $request->GenreName, 
    

@@ -25,7 +25,6 @@ Route::get('/',[ MovieController::class,'index']);
 Route::get('/movie/{id}',[ MovieController::class,'movieDetail']);
 
 
-
 Route::get('/dashboard/movie', [MovieDashboardController::class, 'index'])->name('movie.index');
 
 Route::get('/dashboard/tv', [TvDashboardController::class, 'index'])->name('tv.index');
@@ -34,12 +33,12 @@ Route::get('/dashboard/genre', [GenreDashboardController::class, 'index'])->name
 
 Route::get('/dashboard/rating', [RatingDashboardController::class, 'index'])->name('rating.index');
 
-Route::delete('/genre/{id}', [GenreDashboardController::class, 'delete'])->name('genre.delete');
-
 Route::get('dashboard/genre/create', [GenreDashboardController::class, 'create'])->name('genre.create');
 
-
 Route::post('dashboard/genre', [GenreDashboardController::class, 'store'])->name('genre.store');
+
+Route::delete('/genre/{id}', [GenreDashboardController::class, 'delete'])->name('genre.delete');
+
 
 
 // Route::get('/dashboard/movie', function () {

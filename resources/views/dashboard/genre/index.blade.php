@@ -46,11 +46,12 @@
                         <span class="ml-2">Hapus</span>
                     </button>
                 </form>
+               
             </div>
             </td>
             </tr>
             @endforeach
-    
+            
             <!-- More rows -->
           </tbody>
         </table>
