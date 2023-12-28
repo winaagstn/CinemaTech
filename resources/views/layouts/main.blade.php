@@ -7,8 +7,10 @@
 </head>
 
 <body>
-    <div class="w-full h-auto min-h-screen flex flex-col bg-gray-950">
-       @yield('contain')
+    <div class="w-full h-auto min-h-screen flex flex-col bg-gradient-to-r from-gray-950 via-indigo-950-opacity-90 to - bg-gray-950 ">
+
+
+        @yield('contain')
     </div>
 
 

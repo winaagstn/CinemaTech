@@ -19,6 +19,9 @@ use App\Http\Controllers\TvDashboardController;
 
 
 Route::get('/',[ MovieController::class,'index']);
+Route::get('/movie/{id}',[ MovieController::class,'movieDetail']);
+
+
 
 Route::get('/dashboard/movie', [MovieDashboardController::class, 'index'])->name('movie.index');
 

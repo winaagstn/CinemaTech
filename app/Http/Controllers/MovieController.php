@@ -48,7 +48,7 @@ class MovieController extends Controller
 
 
     $topMovieArray=[];
-    $MAX_TOP_MOVIES= 6 ;
+    $MAX_TOP_MOVIES= 10 ;
 
 
      if ($topMovieResponse->successful()) {
