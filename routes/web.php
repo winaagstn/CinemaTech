@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MovieDashboardController;
 use App\Http\Controllers\TvDashboardController;
+use App\Http\Controllers\GenreDashboardController;
+use App\Models\movieDashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,15 @@ Route::get('/movie/{id}',[ MovieController::class,'movieDetail']);
 Route::get('/dashboard/movie', [MovieDashboardController::class, 'index'])->name('movie.index');
 
 Route::get('/dashboard/tv', [TvDashboardController::class, 'index'])->name('tv.index');
+
+Route::get('/dashboard/genre', [GenreDashboardController::class, 'index'])->name('genre.index');
+
+
+// Route::get('/dashboard/movie', function () {
+//     $movies = movieDashboard::all();
+
+//     return view('dashboard.movie.index', ['movie' => $movies]);
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');
