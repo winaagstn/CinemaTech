@@ -48,7 +48,7 @@ class MovieController extends Controller
 
 
     $topMovieArray=[];
-    $MAX_TOP_MOVIES= 6 ;
+    $MAX_TOP_MOVIES= 10 ;
 
 
      if ($topMovieResponse->successful()) {
@@ -81,5 +81,30 @@ class MovieController extends Controller
 
         }
     }
+  }
+
+  public function movieDetail($id){
+         $baseURL = env ('MOVIE_DB_BASE_URL');
+        $imageURL = env ('MOVIE_DB_IMAGE_BASE_URL');
+        $apiKey = env ('MOVIE_DB_API_KEY');
+
+         $response = Http::get("{$baseURL}/movie/{$id}",[
+                'api_key' => $apiKey,
+                'append_to_response'=> 'videos'
+
+              ]);
+              $movieData = null;
+          if($response->successful()){
+                $movieData = $response->object();
+
+          }
+
+        return view('movie',[
+            'baseURL' =>$baseURL,
+            'ImageBaseURL'=>$imageURL,
+            'apiKey'=> $apiKey,
+            'movieData' => $movieData
+         ]);
+
   }
 }
