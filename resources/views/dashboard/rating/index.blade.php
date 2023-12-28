@@ -7,7 +7,7 @@
   <!-- Content Wrapper -->
   <div class="container mx-auto px-4 py-6">
     <!-- Main Content Area -->
-    <h2 class="text-2xl font-semibold mb-4">Genre</h2>
+    <h2 class="text-2xl font-semibold mb-4">Rating</h2>
 
   
     <!-- Data Table Section -->
@@ -17,7 +17,7 @@
           <thead>
             <tr class="bg-gray-100 dark:bg-gray-700">
               <th class="px-4 py-2 text-xl   text-gray-900 dark:text-white"style="width: 50px;">No</th>
-              <th class="px-4 py-2 text-xl   text-gray-900 dark:text-white"style="width:100px;">Genre</th>
+              <th class="px-4 py-2 text-xl   text-gray-900 dark:text-white"style="width:100px;">Rating</th>
               <th class="px-4 py-2 text-xl   text-gray-900 dark:text-white" style="width: 90px;">Action</th>
               <!-- Add more table headers as needed -->
             </tr>
@@ -25,9 +25,10 @@
           <tbody>
             <!-- Sample table rows (replace with actual data) -->
             <tr>
-                @foreach ($genre as $gr)
-              <td class="border px-4 py-2">{{ $gr->id }}</td>
-              <td class="border px-4 py-2">{{ $gr->GenreName }}</td>
+                {{-- @foreach ($genre as $gr) --}}
+              {{-- <td class="border px-4 py-2">{{ $gr->id }}</td> --}}
+              <td class="border px-4 py-2">1</td>
+              <td class="border px-4 py-2"> 7.5</td>
               <td class="border px-4 py-2" style="text-align: center;">
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                     <span class="ml-2">Lihat</span>
@@ -40,7 +41,7 @@
                 </button>
             </td>
             </tr>
-            @endforeach
+            {{-- @endforeach --}}
     
             <!-- More rows -->
           </tbody>

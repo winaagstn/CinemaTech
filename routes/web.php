@@ -6,7 +6,8 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MovieDashboardController;
 use App\Http\Controllers\TvDashboardController;
 use App\Http\Controllers\GenreDashboardController;
-use App\Models\movieDashboard;
+use App\Http\Controllers\RatingDashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::get('/dashboard/movie', [MovieDashboardController::class, 'index'])->name
 Route::get('/dashboard/tv', [TvDashboardController::class, 'index'])->name('tv.index');
 
 Route::get('/dashboard/genre', [GenreDashboardController::class, 'index'])->name('genre.index');
+
+Route::get('/dashboard/rating', [RatingDashboardController::class, 'index'])->name('rating.index');
 
 
 // Route::get('/dashboard/movie', function () {
