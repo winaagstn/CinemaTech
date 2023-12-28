@@ -1,16 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\ratingsDashboard;
 use Illuminate\Http\Request;
 
 class RatingDashboardController extends Controller
 {
     public function index()
     {
-        // $genre = genreDashboard::all();
+        $ratings = ratingsDashboard::all();
 
-        // return view('dashboard.genre.index', ['genre' => $genre]);
-        return view('dashboard.rating.index'); 
+        return view('dashboard.rating.index', ['ratings' => $ratings]);
+        // return view('dashboard.rating.index'); 
     }
 }

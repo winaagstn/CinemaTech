@@ -25,10 +25,9 @@
           <tbody>
             <!-- Sample table rows (replace with actual data) -->
             <tr>
-                {{-- @foreach ($genre as $gr) --}}
-              {{-- <td class="border px-4 py-2">{{ $gr->id }}</td> --}}
-              <td class="border px-4 py-2">1</td>
-              <td class="border px-4 py-2"> 7.5</td>
+                @foreach ($ratings as $rt)
+              <td class="border px-4 py-2">{{ $rt->id }}</td>
+              <td class="border px-4 py-2">{{ $rt->rating }}</td>
               <td class="border px-4 py-2" style="text-align: center;">
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                     <span class="ml-2">Lihat</span>
@@ -41,7 +40,7 @@
                 </button>
             </td>
             </tr>
-            {{-- @endforeach --}}
+            @endforeach
     
             <!-- More rows -->
           </tbody>
