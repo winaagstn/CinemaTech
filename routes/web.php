@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MovieDashboardController;
+use App\Http\Controllers\TvDashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,14 +20,22 @@ use App\Http\Controllers\MovieController;
 
 Route::get('/',[ MovieController::class,'index']);
 
+Route::get('/dashboard/movie', [MovieDashboardController::class, 'index'])->name('movie.index');
+
+Route::get('/dashboard/tv', [TvDashboardController::class, 'index'])->name('tv.index');
+
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware(['auth', 'verified'])->name('dashboard.index');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';

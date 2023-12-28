@@ -38,6 +38,7 @@
                 {{ __('Belum punya akun?') }}
             </a>
 
+
             <x-primary-button class="ms-3">
                 {{ __('Log in') }}
             </x-primary-button>

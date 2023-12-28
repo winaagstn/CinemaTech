@@ -74,10 +74,14 @@ class MovieController extends Controller
             'apiKey'=> $apiKey,
             'banner'=> $bannerArray,
             'topMovies'=> $topMovieArray
-
         ]);
+
 
         }
     }
   }
+
+    
+      
+    
 }
