@@ -26,7 +26,7 @@
             <!-- Sample table rows (replace with actual data) -->
             <tr>
                 @foreach ($ratings as $rt)
-              <td class="border px-4 py-2">{{ $rt->id }}</td>
+              <td class="border px-4 py-2">{{ $loop->iteration }}</td>
               <td class="border px-4 py-2">{{ $rt->rating }}</td>
               <td class="border px-4 py-2" style="text-align: center;">
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">

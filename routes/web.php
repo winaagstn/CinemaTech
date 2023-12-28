@@ -34,6 +34,13 @@ Route::get('/dashboard/genre', [GenreDashboardController::class, 'index'])->name
 
 Route::get('/dashboard/rating', [RatingDashboardController::class, 'index'])->name('rating.index');
 
+Route::delete('/genre/{id}', [GenreDashboardController::class, 'delete'])->name('genre.delete');
+
+Route::get('dashboard/genre/create', [GenreDashboardController::class, 'create'])->name('genre.create');
+
+
+Route::post('dashboard/genre', [GenreDashboardController::class, 'store'])->name('genre.store');
+
 
 // Route::get('/dashboard/movie', function () {
 //     $movies = movieDashboard::all();

@@ -17,4 +17,7 @@ class genreDashboard extends Model
         'GenreName',
     ];
 
+    
+
 }
+
