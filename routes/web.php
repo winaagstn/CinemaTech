@@ -64,6 +64,9 @@ Route::put('/rating/{id}', [RatingDashboardController::class, 'update'])->name('
 // delete rating
 Route::delete('/rating/{id}', [RatingDashboardController::class, 'delete'])->name('rating.delete');
 
+// show rating
+Route::get('/rating/{id}', [RatingDashboardController::class, 'show'])->name('rating.show');
+
 
 // Route::get('/dashboard/movie', function () {
 //     $movies = movieDashboard::all();

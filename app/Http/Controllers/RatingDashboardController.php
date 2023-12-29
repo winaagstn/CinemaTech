@@ -64,4 +64,10 @@ class RatingDashboardController extends Controller
 
         return redirect()->route('rating.index')->with('success', 'Data berhasil terhapus');
     }
+
+    public function show($id)
+    {
+    $ratings = ratingsDashboard::findOrFail($id);
+        return view('dashboard.rating.show', ['ratings' => $ratings]);
+    }
 }
