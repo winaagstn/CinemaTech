@@ -36,6 +36,27 @@ class RatingDashboardController extends Controller
         return redirect()->route('rating.index')->with('success', 'Data berhasil ditambahkan');
     }
 
+    public function edit($id)
+    {
+        $ratings = ratingsDashboard::findOrFail($id);
+        return view('dashboard.rating.edit', ['ratings' => $ratings]);
+    }
+
+    
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'rating' => 'required|max:255',
+        ]);
+
+        $ratings = ratingsDashboard::findOrFail($id);
+        $ratings->update([
+            'rating' => $request->rating,
+        ]);
+
+        return redirect()->route('rating.index')->with('success', 'Data berhasil diperbarui');
+    }
+
     public function delete($id)
     {
         $ratings = ratingsDashboard::findOrFail($id);

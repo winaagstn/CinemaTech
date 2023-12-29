@@ -36,7 +36,9 @@
                     <span class="ml-2">Lihat</span>
                 </button>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ">
+                  <a href="{{ route('rating.edit', $rt->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                     <span class="ml-2">Edit</span>
+                </a>
                 </button>
                 <form action="{{ route('rating.delete', ['id' => $rt->id]) }}" method="POST" id="deleteForm{{$rt->id}}">
                   @csrf
