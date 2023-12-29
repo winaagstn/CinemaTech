@@ -19,6 +19,13 @@ class GenreDashboardController extends Controller
         return view('dashboard.genre.create');
     }
 
+
+    public function show($id)
+    {
+    $genre = genreDashboard::findOrFail($id);
+        return view('dashboard.genre.show', ['genre' => $genre]);
+    }
+
  
     public function store(Request $request)
     {
@@ -43,4 +50,26 @@ class GenreDashboardController extends Controller
 
         return redirect()->route('genre.index')->with('success', 'Data berhasil terhapus');
     }
+
+    public function edit($id)
+    {
+        $genre = genreDashboard::findOrFail($id);
+        return view('dashboard.genre.edit', ['genre' => $genre]);
+    }
+
+    
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'GenreName' => 'required|max:255',
+        ]);
+
+        $genre = genreDashboard::findOrFail($id);
+        $genre->update([
+            'GenreName' => $request->GenreName,
+        ]);
+
+        return redirect()->route('genre.index')->with('success', 'Data berhasil diperbarui');
+    }
 }
+

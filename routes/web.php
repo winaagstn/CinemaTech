@@ -39,6 +39,11 @@ Route::post('dashboard/genre', [GenreDashboardController::class, 'store'])->name
 
 Route::delete('/genre/{id}', [GenreDashboardController::class, 'delete'])->name('genre.delete');
 
+Route::get('/genre/{id}/edit', [GenreDashboardController::class, 'edit'])->name('genre.edit');
+
+Route::put('/genre/{id}', [GenreDashboardController::class, 'update'])->name('genre.update');
+
+Route::get('/genre/{id}', [GenreDashboardController::class, 'show'])->name('genre.show');
 
 
 // Route::get('/dashboard/movie', function () {
