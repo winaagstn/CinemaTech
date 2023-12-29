@@ -49,6 +49,8 @@ Route::get('/dashboard/rating/create', [RatingDashboardController::class, 'creat
 
 Route::post('/dashboard/rating', [RatingDashboardController::class, 'store'])->name('rating.store');
 
+Route::delete('/rating/{id}', [RatingDashboardController::class, 'delete'])->name('rating.delete');
+
 
 // Route::get('/dashboard/movie', function () {
 //     $movies = movieDashboard::all();

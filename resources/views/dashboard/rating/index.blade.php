@@ -26,21 +26,26 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Sample table rows (replace with actual data) -->
+            @foreach ($ratings as $rt)
             <tr>
-                @foreach ($ratings as $rt)
               <td class="border px-4 py-2">{{ $loop->iteration }}</td>
               <td class="border px-4 py-2">{{ $rt->rating }}</td>
               <td class="border px-4 py-2" style="text-align: center;">
+                <div style="display: flex; justify-content: center; align-items: center;">
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                     <span class="ml-2">Lihat</span>
                 </button>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ">
                     <span class="ml-2">Edit</span>
                 </button>
-                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                    <span class="ml-2">Hapus</span>
-                </button>
+                <form action="{{ route('rating.delete', ['id' => $rt->id]) }}" method="POST" id="deleteForm{{$rt->id}}">
+                  @csrf
+                  @method('DELETE')
+                  <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                      <span class="ml-2">Hapus</span>
+                  </button>
+              </form>
+            </div>
             </td>
             </tr>
             @endforeach

@@ -35,4 +35,12 @@ class RatingDashboardController extends Controller
 
         return redirect()->route('rating.index')->with('success', 'Data berhasil ditambahkan');
     }
+
+    public function delete($id)
+    {
+        $ratings = ratingsDashboard::findOrFail($id);
+        $ratings->delete();
+
+        return redirect()->route('rating.index')->with('success', 'Data berhasil terhapus');
+    }
 }
