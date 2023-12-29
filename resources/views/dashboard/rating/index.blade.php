@@ -9,6 +9,9 @@
     <!-- Main Content Area -->
     <h2 class="text-2xl font-semibold mb-4">Rating</h2>
 
+    <div class="text-right mb-4">
+      <a href="{{ route('rating.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Tambah Data</a>
+  </div>
   
     <!-- Data Table Section -->
     <div class="mt-8">

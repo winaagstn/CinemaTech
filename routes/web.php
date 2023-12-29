@@ -45,6 +45,10 @@ Route::put('/genre/{id}', [GenreDashboardController::class, 'update'])->name('ge
 
 Route::get('/genre/{id}', [GenreDashboardController::class, 'show'])->name('genre.show');
 
+Route::get('/dashboard/rating/create', [RatingDashboardController::class, 'create'])->name('rating.create');
+
+Route::post('/dashboard/rating', [RatingDashboardController::class, 'store'])->name('rating.store');
+
 
 // Route::get('/dashboard/movie', function () {
 //     $movies = movieDashboard::all();
