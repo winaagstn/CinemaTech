@@ -42,23 +42,29 @@ class GenreDashboardController extends Controller
      */
     public function show(genre $genre)
     {
-        //
+       
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(genre $genre)
+    public function edit($id)
     {
-        //
+        $genre = genre::findOrFail($id); 
+        return view('dashboard.genre.edit', ['genre' => $genre]); 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, genre $genre)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        $genre = genre::findOrFail($id); 
+        $genre->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('genre.index')->with('success', 'Genre berhasil diperbarui!');
     }
 
     /**

@@ -28,6 +28,7 @@ Route::get('/movie/{id}',[ MovieController::class,'movieDetail']);
 
 Route::resource('/dashboard/genre', GenreDashboardController::class);
 
+
 Route::resource('/dashboard/movie',MovieDashboardController::class );
 
 Route::get('/dashboard', function () {

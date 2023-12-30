@@ -38,9 +38,9 @@
                      {{-- </a> --}}
                 </button>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ">
-                    {{-- <a href="{{ route('genre.edit', $gr->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"> --}}
+                    <a href="{{ route('genre.edit', $gr->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                         <span class="ml-2">Edit</span>
-                    {{-- </a> --}}
+                    </a>
                 </button>
                 {{-- <form action="{{ route('genre.delete', ['id' => $gr->id]) }}" method="POST" id="deleteForm{{$gr->id}}">
                     @csrf
