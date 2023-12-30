@@ -50,8 +50,10 @@
                     <span class="ml-2">Lihat</span>
                 </button>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ">
-                    <span class="ml-2">Edit</span>
-                </button>
+                  <a href="{{ route('movie.edit', $mv->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                      <span class="ml-2">Edit</span>
+                  </a>
+              </button>
                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
                     <span class="ml-2">Hapus</span>
                 </button>

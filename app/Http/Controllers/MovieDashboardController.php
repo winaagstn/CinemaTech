@@ -56,19 +56,32 @@ class MovieDashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit($id)
     {
-        //
+        $movie = movie::findOrFail($id);
+        $genre = genre::all();
+    
+        return view('dashboard.movie.edit', ['movie' => $movie],['genre' => $genre]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update()
+    public function update(Request $request, $id)
     {
-        //
+        $movie = Movie::findOrFail($id);
+        
+    
+        $movie->title = $request->title;
+        $movie->release_date = $request->release_date;
+        $movie->poster_path = $request->poster_path;
+        $movie->overview = $request->overview;
+        $movie->genre_id = $request->genre_id;
+    
+        $movie->save();
+    
+        return redirect()->route('movie.index')->with('success', 'Film berhasil diperbarui!');
     }
-
     /**
      * Remove the specified resource from storage.
      */
