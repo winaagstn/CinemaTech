@@ -39,6 +39,9 @@ class MovieDashboardController extends Controller
             'overview' => 'required',
             'genre_id' => 'required',
             'poster_path' => 'mimes:jpeg,png,jpg,gif|max:1024', 
+        ],[
+            'poster_path.mimes' => 'File yang diunggah harus berupa gambar dengan format jpeg, png, jpg, atau gif.',
+            'poster_path.max' => 'Ukuran gambar tidak boleh lebih dari 1024 KB.',
         ]);
 
         $movie=[
