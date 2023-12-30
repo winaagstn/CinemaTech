@@ -6,6 +6,7 @@
         <h2 class="text-2xl font-semibold mb-4">Tambah Movie Baru</h2>
         <form method="POST" action="{{ route('movie.store') }}">
             @csrf
+            <input type="hidden" name="id">
             <div class="mb-3">
                 <label for="title" class="block text-sm font-semibold mb-1">Judul Movie</label>
                 <input type="text" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 @error('title') border-red-500 @enderror" id="title" 
@@ -47,15 +48,16 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="image" class="block text-sm font-semibold mb-1">Poster Path </label>
+                <label for="image" class="block text-sm font-semibold mb-1">Poster Path</label>
                 <div>
                     <img class="img-preview mb-3 w-40 h-auto" id="img-preview">
                 </div>
                 <input class="border rounded-md py-2 px-3 w-full @error('poster_path') border-red-500 @enderror" type="file" id="poster_path" name="poster_path" onchange="previewImage()">
-                @error('psoter_path')
+                @error('poster_path')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
-            </div>
+            </div>            
+            
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
         </form>
     </div>

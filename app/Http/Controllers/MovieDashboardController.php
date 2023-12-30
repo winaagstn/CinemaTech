@@ -61,7 +61,7 @@ class MovieDashboardController extends Controller
     {
         $movie = movie::findOrFail($id);
         $genre = genre::all();
-    
+
         return view('dashboard.movie.edit', ['movie' => $movie],['genre' => $genre]);
     }
 
@@ -71,23 +71,28 @@ class MovieDashboardController extends Controller
     public function update(Request $request, $id)
     {
         $movie = Movie::findOrFail($id);
-        
-    
+
+
         $movie->title = $request->title;
         $movie->release_date = $request->release_date;
         $movie->poster_path = $request->poster_path;
         $movie->overview = $request->overview;
         $movie->genre_id = $request->genre_id;
-    
+
         $movie->save();
-    
+
         return redirect()->route('movie.index')->with('success', 'Film berhasil diperbarui!');
     }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy($id)
     {
-        //
+        $movie = movie::findOrFail($id);
+
+        $movie->delete();
+
+        return redirect()->route('movie.index')->with('success', 'Film berhasil dihapus!');
     }
 }
