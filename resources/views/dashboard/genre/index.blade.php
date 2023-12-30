@@ -42,13 +42,15 @@
                         <span class="ml-2">Edit</span>
                     </a>
                 </button>
-                {{-- <form action="{{ route('genre.delete', ['id' => $gr->id]) }}" method="POST" id="deleteForm{{$gr->id}}">
-                    @csrf
-                    @method('DELETE') --}}
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"">
-                        <span class="ml-2">Hapus</span>
-                    </button>
-                {{-- </form>    --}}
+                <form action="{{ route('genre.destroy', ['genre' => $gr->id]) }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+              
+                  <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                      <span class="ml-2">Hapus</span>
+                  </button>
+              </form>
+                
             </div>
             </td>
             </tr>
