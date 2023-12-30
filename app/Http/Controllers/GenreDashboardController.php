@@ -70,12 +70,9 @@ class GenreDashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy()
     {
-        $genre = genre::findOrFail($id); // Temukan genre berdasarkan ID
-        $genre->delete(); // Hapus data genre dari database
-
-        return redirect()->route('genre.index')->with('success', 'Genre berhasil dihapus!');
+       //
     }
 }
 

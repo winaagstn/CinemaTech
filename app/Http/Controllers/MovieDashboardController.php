@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\movie;
+use App\Models\genre;
 use Illuminate\Http\Request;
 
 class MovieDashboardController extends Controller
@@ -21,7 +22,9 @@ class MovieDashboardController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.movie.create',[
+            'genre' => genre::all()
+        ]);
     }
 
     /**
@@ -29,13 +32,23 @@ class MovieDashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        movie::create([
+            'title' => $request->title,
+            'release_date' => $request->release_date,
+            'poster_path' => $request->poster_path,
+            'overview' => $request->overview,
+            'genre_id' => $request->genre_id,
+
+        ]);
+
+        return redirect()->route('movie.index')->with('success', 'Film berhasil ditambahkan!');
     }
+   
 
     /**
      * Display the specified resource.
      */
-    public function show(movie $movie)
+    public function show()
     {
         //
     }
@@ -43,7 +56,7 @@ class MovieDashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(movie $movie)
+    public function edit()
     {
         //
     }
@@ -51,7 +64,7 @@ class MovieDashboardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, movie $movie)
+    public function update()
     {
         //
     }
@@ -59,7 +72,7 @@ class MovieDashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(movie $movie)
+    public function destroy()
     {
         //
     }
