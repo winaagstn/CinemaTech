@@ -32,10 +32,9 @@
               <td class="border px-2 py-2" style="text-align: center;">
                 <div style="display: flex; justify-content: center; align-items: center;">
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                    {{-- <a href="{{ route('genre.show', ['id' => $gr->id]) }}"  --}}
-                        {{-- class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"> --}}
+                    <a href="{{ route('genre.show', $gr->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                          <span class="ml-2">Lihat</span>
-                     {{-- </a> --}}
+                     </a>
                 </button>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ">
                     <a href="{{ route('genre.edit', $gr->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">

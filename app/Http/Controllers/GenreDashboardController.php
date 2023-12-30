@@ -44,8 +44,8 @@ class GenreDashboardController extends Controller
      */
     public function show($id)
     {
-        $movie = movie::findOrFail($id);
-        return view('dashboard.movie.show', ['movie' => $movie]);
+        $genre = genre::findOrFail($id);
+        return view('dashboard.genre.show', ['genre' => $genre]);
     }
 
     public function edit($id)

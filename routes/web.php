@@ -8,6 +8,7 @@ use App\Http\Controllers\TvDashboardController;
 use App\Http\Controllers\GenreDashboardController;
 use App\Http\Controllers\RatingDashboardController;
 use App\Models\movie;
+use App\Http\Controllers\MoviePDFController;
 
 
 /*
@@ -34,6 +35,7 @@ Route::resource('/dashboard/movie',MovieDashboardController::class );
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware(['auth', 'verified'])->name('dashboard.index');
+
 
 
 Route::middleware('auth')->group(function () {

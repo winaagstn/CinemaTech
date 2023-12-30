@@ -8,7 +8,7 @@
 <div class="max-w-3xl bg-white rounded-lg shadow-lg p-6 ml-6">
     <div class="mb-4">
         <p class="text-xl font-semibold mb-2">Jenis Genre :</p>
-        <p class="text-lg">{{ $genre->GenreName }}</p>
+        <p class="text-lg">{{ $genre->name }}</p>
     </div>
 </div>
 @endsection

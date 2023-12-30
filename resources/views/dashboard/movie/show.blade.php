@@ -4,14 +4,13 @@
 <div class="flex justify-between flex-wrap items-center pt-3 pb-2 mb-3 border-b">
     <h1 class="text-2xl ml-6 pr-4">Detail Movie</h1>
 </div>
-
 <div class="max-w-3xl bg-white rounded-lg shadow-lg p-6 ml-6">
     <div class="mb-4">
         @if($movie->poster_path)
-        <img src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}" alt="Deskripsi gambar" style="display: block; margin: auto;" width="100" height="100">
-@elseif ($movie->poster_path)
-        <img src="{{ ('/img/' . $movie->poster_path) }}" alt="Deskripsi gambar" style="display: block; margin: auto;" width="100" height="100">
-@endif
+            @if($movie->poster_path != null)
+                <img src="{{ $movie->poster_path ? Str::startsWith($movie->poster_path, 'https') ? $movie->poster_path : asset('/img/' . $movie->poster_path) }}" alt="Deskripsi gambar" style="display: block; margin: auto;" width="100" height="100">
+            @endif
+        @endif
     </div>
 </div>
 
