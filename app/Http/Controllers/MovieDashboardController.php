@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\movie;
 use App\Models\genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class MovieDashboardController extends Controller
 {
@@ -39,9 +40,6 @@ class MovieDashboardController extends Controller
             'overview' => 'required',
             'genre_id' => 'required',
             'poster_path' => 'mimes:jpeg,png,jpg,gif|max:1024', 
-        ],[
-            'poster_path.mimes' => 'File yang diunggah harus berupa gambar dengan format jpeg, png, jpg, atau gif.',
-            'poster_path.max' => 'Ukuran gambar tidak boleh lebih dari 1024 KB.',
         ]);
 
         $movie=[
@@ -92,19 +90,45 @@ class MovieDashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $movie = Movie::findOrFail($id);
-
-
-        $movie->title = $request->title;
-        $movie->release_date = $request->release_date;
-        $movie->poster_path = $request->poster_path;
-        $movie->overview = $request->overview;
-        $movie->genre_id = $request->genre_id;
-
-        $movie->save();
-
+        $request->validate([
+            'title' => 'required',
+            'release_date' => 'required',
+            'overview' => 'required',
+            'genre_id' => 'required',
+        ]);
+        
+        $movieData = [
+            'title' => $request->title,
+            'release_date' => $request->release_date,
+            'overview' => $request->overview,
+            'genre_id' => $request->genre_id,
+        ];
+    
+        $movie = movie::findOrFail($id);
+    
+        // Cek apakah ada file gambar yang diunggah
+        if ($request->hasFile('poster_path')) {
+            $request->validate([
+                'poster_path' => 'mimes:jpeg,png,jpg,gif|max:1024'
+            ]);
+    
+            $poster_file = $request->file('poster_path');
+            $poster_nama = $poster_file->hashName();
+            $poster_file->move(public_path('img'), $poster_nama);
+    
+            // Hapus gambar lama sebelum menyimpan yang baru
+            if ($movie->poster_path) {
+                File::delete(public_path('img') . '/' . $movie->poster_path);
+            }
+    
+            $movieData['poster_path'] = $poster_nama;
+        }
+    
+        $movie->update($movieData);
+    
         return redirect()->route('movie.index')->with('success', 'Film berhasil diperbarui!');
     }
+    
 
     /**
      * Remove the specified resource from storage.

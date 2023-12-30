@@ -8,7 +8,7 @@
     <div class="mb-4">
         @if($movie->poster_path)
             @if($movie->poster_path != null)
-                <img src="{{ $movie->poster_path ? Str::startsWith($movie->poster_path, 'https') ? $movie->poster_path : asset('/img/' . $movie->poster_path) }}" alt="Deskripsi gambar" style="display: block; margin: auto;" width="100" height="100">
+            <img src="{{ $movie->poster_path ? (Str::startsWith($movie->poster_path, 'https') ? $movie->poster_path : asset('/img/' . $movie->poster_path)) : '' }}" alt="Deskripsi gambar" style="display: block; margin: auto;" width="100" height="100">
             @endif
         @endif
     </div>

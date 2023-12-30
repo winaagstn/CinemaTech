@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mx-auto px-4 py-6">
         <h2 class="text-2xl font-semibold mb-4">Edit Movie</h2>
-        <form method="POST" action="{{ route('movie.update', ['movie' => $movie->id]) }}">
+        <form method="POST" action="{{ route('movie.update', ['movie' => $movie->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="mb-4">
@@ -21,11 +21,11 @@
                 @enderror
             </div>
             <div class="mb-4">
-                <label for="poster_path" class="block mb-2 font-semibold">Poster Path</label>
-                <input type="text" class="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 @error('poster_path') border-red-500 @enderror" id="poster_path" name="poster_path" value="{{ old('poster_path', $movie->poster_path) }}">
-                @error('poster_path')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
+                <label for="poster_path" class="form-label block mb-2 font-semibold">Poster Path</label>
+                @if ($movie->poster_path)
+                <img src="{{url('img').'/'.$movie->poster_path}}" alt="" width="100" height="100">
+                @endif
+                <input type="file" class=" form-control w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 @error('poster_path') border-red-500 @enderror" id="poster_path" name="poster_path" value="{{ old('poster_path', $movie->poster_path) }}">
             </div>
             <div class="mb-4">
                 <label for="overview" class="block mb-2 font-semibold">Overview</label>
