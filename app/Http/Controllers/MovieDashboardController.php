@@ -32,16 +32,35 @@ class MovieDashboardController extends Controller
      */
     public function store(Request $request)
     {
-        movie::create([
+
+        $request->validate([
+            'title' => 'required',
+            'release_date' => 'required',
+            'overview' => 'required',
+            'genre_id' => 'required',
+            'poster_path' => 'mimes:jpeg,png,jpg,gif|max:1024', 
+        ]);
+
+        $movie=[
             'title' => $request->title,
             'release_date' => $request->release_date,
-            'poster_path' => $request->poster_path,
             'overview' => $request->overview,
             'genre_id' => $request->genre_id,
 
-        ]);
+        ];
 
+        // cek gambar yg akan diupload
+        if($request->hasFile('poster_path')) {
+            $poster_file = $request->file('poster_path');
+            $poster_nama = $poster_file->hashName();
+            $poster_file->move(public_path('img'), $poster_nama);
+
+            $movie['poster_path'] = $poster_nama;
+
+        }
+        movie::create($movie);
         return redirect()->route('movie.index')->with('success', 'Film berhasil ditambahkan!');
+     
     }
    
 

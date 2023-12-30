@@ -4,7 +4,7 @@
 @section('content')
     <div class="container mx-auto px-4 py-6">
         <h2 class="text-2xl font-semibold mb-4">Tambah Movie Baru</h2>
-        <form method="POST" action="{{ route('movie.store') }}">
+        <form method="POST" action="{{ route('movie.store') }}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id">
             <div class="mb-3">
@@ -47,18 +47,32 @@
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="image" class="block text-sm font-semibold mb-1">Poster Path</label>
-                <div>
-                    <img class="img-preview mb-3 w-40 h-auto" id="img-preview">
-                </div>
-                <input class="border rounded-md py-2 px-3 w-full @error('poster_path') border-red-500 @enderror" type="file" id="poster_path" name="poster_path" onchange="previewImage()">
-                @error('poster_path')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>            
+            <div class="mb-3 col-6 mt-3">
+                <label for="poster_path" class="form-label block text-sm font-semibold mb-1">Poster Movie</label>
+                <input type="file" class="form-control" name="poster_path">
+            </div>
+                        
             
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
         </form>
+        <script>
+            function previewImage() {
+                var preview = document.querySelector('#img-preview'); // Selects the <img> element with id "img-preview"
+                var file = document.querySelector('input[type=file]').files[0]; // Gets the selected file
+        
+                var reader = new FileReader(); // Initialize FileReader object
+        
+                reader.onloadend = function () {
+                    preview.src = reader.result; // Set src attribute of the image to the data URL from FileReader
+                }
+        
+                if (file) {
+                    reader.readAsDataURL(file); // Read the file as a data URL (base64 string)
+                } else {
+                    preview.src = ""; // If no file selected, show no image
+                }
+            }
+        </script>
+        
     </div>
 @endsection

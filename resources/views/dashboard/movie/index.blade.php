@@ -33,13 +33,10 @@
             @foreach ($movie as $mv)
             <tr>
               <td class="border px-4 py-2" style="display: flex; justify-content: space-between;">
-                  @if($mv->poster_path)
+                  {{-- @if($mv->poster_path)
                       <img src="https://image.tmdb.org/t/p/w500/{{ $mv->poster_path }}" alt="Deskripsi gambar" style="display: block; margin: auto;" width="100" height="100">
-                  @endif
-              
-                  @if($mv->poster_path && !Str::startsWith($mv->poster_path, 'https'))
+                  @endif --}}
                       <img src="{{ asset('/img/' . $mv->poster_path) }}" alt="Deskripsi gambar" style="display: block; margin: auto;" width="100" height="100">
-                  @endif
               </td>
             
               <td class="border px-4 py-2">{{ $mv->title }}</td>
