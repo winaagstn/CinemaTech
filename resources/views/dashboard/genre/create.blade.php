@@ -7,10 +7,10 @@
         <form method="POST" action="{{ route('genre.store') }}">
             @csrf
             <div class="mb-3">
-                <label for="GenreName" class="block text-sm font-semibold mb-1">Nama Genre</label>
-                <input type="text" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 @error('GenreName') border-red-500 @enderror" id="GenreName" 
-                    name="GenreName" required value="{{ old('GenreName')}}">
-                @error('GenreName')
+                <label for="name" class="block text-sm font-semibold mb-1">Nama Genre</label>
+                <input type="text" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 @error('name') border-red-500 @enderror" id="name" 
+                    name="name" required value="{{ old('name')}}">
+                @error('name')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>

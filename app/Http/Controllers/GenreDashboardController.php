@@ -1,74 +1,72 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\genreDashboard;
+use App\Models\genre;
 use Illuminate\Http\Request;
 
 class GenreDashboardController extends Controller
 {
     public function index()
     {
-        $genre = genreDashboard::all();
-
+        $genre = genre::all();
         return view('dashboard.genre.index', ['genre' => $genre]);
         // return view('dashboard.genre.index'); 
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         return view('dashboard.genre.create');
     }
 
- 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'GenreName' => 'required|max:255', 
-  
+            'name' => 'required|unique:genres,name', 
         ]);
 
-      
-        genreDashboard::create([
-            'GenreName' => $request->GenreName, 
-   
+        Genre::create([
+            'name' => $request->name,
         ]);
 
-        return redirect()->route('genre.index')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('genre.index')->with('success', 'Genre berhasil ditambahkan!');
     }
 
-    public function show($id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(genre $genre)
     {
-    $genre = genreDashboard::findOrFail($id);
-        return view('dashboard.genre.show', ['genre' => $genre]);
+        //
     }
 
-    public function delete($id)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(genre $genre)
     {
-        $genre = genreDashboard::findOrFail($id);
-        $genre->delete();
-
-        return redirect()->route('genre.index')->with('success', 'Data berhasil terhapus');
+        //
     }
 
-    public function edit($id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, genre $genre)
     {
-        $genre = genreDashboard::findOrFail($id);
-        return view('dashboard.genre.edit', ['genre' => $genre]);
+        //
     }
 
-    
-    public function update(Request $request, $id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(genre $genre)
     {
-        $request->validate([
-            'GenreName' => 'required|max:255',
-        ]);
-
-        $genre = genreDashboard::findOrFail($id);
-        $genre->update([
-            'GenreName' => $request->GenreName,
-        ]);
-
-        return redirect()->route('genre.index')->with('success', 'Data berhasil diperbarui');
+        //
     }
 }
 

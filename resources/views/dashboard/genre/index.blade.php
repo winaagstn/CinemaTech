@@ -28,27 +28,27 @@
             @foreach ($genre as $gr)
             <tr>
               <td class="border px-4 py-2">{{ $loop->iteration }}</td>
-              <td class="border px-4 py-2">{{ $gr->GenreName }}</td>
+              <td class="border px-4 py-2">{{ $gr->name }}</td>
               <td class="border px-2 py-2" style="text-align: center;">
                 <div style="display: flex; justify-content: center; align-items: center;">
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                    <a href="{{ route('genre.show', ['id' => $gr->id]) }}" 
-                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                    {{-- <a href="{{ route('genre.show', ['id' => $gr->id]) }}"  --}}
+                        {{-- class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"> --}}
                          <span class="ml-2">Lihat</span>
-                     </a>
+                     {{-- </a> --}}
                 </button>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ">
-                    <a href="{{ route('genre.edit', $gr->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    {{-- <a href="{{ route('genre.edit', $gr->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"> --}}
                         <span class="ml-2">Edit</span>
-                    </a>
+                    {{-- </a> --}}
                 </button>
-                <form action="{{ route('genre.delete', ['id' => $gr->id]) }}" method="POST" id="deleteForm{{$gr->id}}">
+                {{-- <form action="{{ route('genre.delete', ['id' => $gr->id]) }}" method="POST" id="deleteForm{{$gr->id}}">
                     @csrf
-                    @method('DELETE')
+                    @method('DELETE') --}}
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"">
                         <span class="ml-2">Hapus</span>
                     </button>
-                </form>   
+                {{-- </form>    --}}
             </div>
             </td>
             </tr>

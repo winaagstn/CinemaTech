@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ratingsDashboard extends Model
+class movie extends Model
 {
     use HasFactory;
 
-    protected $table = 'ratings';
+    protected $guarded = ['id']; 
 
-    protected $guarded = ['id'];
+    public function genre()
+    {
+        return $this->belongsTo(genre::class);
+    }
+
     
-    protected $fillable = [
-        'rating',
-    ];
 }
