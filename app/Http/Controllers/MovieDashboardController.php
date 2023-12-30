@@ -48,9 +48,10 @@ class MovieDashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($id)
     {
-        //
+        $movie = movie::findOrFail($id);
+        return view('dashboard.movie.show', ['movie' => $movie]);
     }
 
     /**

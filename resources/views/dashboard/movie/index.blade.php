@@ -47,7 +47,9 @@
               <td class="border px-4 py-2" style="text-align: center;">
                 <div style="display: flex; justify-content: center; align-items: center;">
                 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                 <a href="{{ route('movie.show', $mv->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                     <span class="ml-2">Lihat</span>
+                 </a>
                 </button>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ">
                   <a href="{{ route('movie.edit', $mv->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\genre;
+use App\Models\movie;
 use Illuminate\Http\Request;
+
 
 class GenreDashboardController extends Controller
 {
@@ -40,10 +42,12 @@ class GenreDashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(genre $genre)
+    public function show($id)
     {
-       
+        $movie = movie::findOrFail($id);
+        return view('dashboard.movie.show', ['movie' => $movie]);
     }
+
     public function edit($id)
     {
         $genre = genre::findOrFail($id); 
