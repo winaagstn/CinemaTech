@@ -8,7 +8,8 @@
 
                  $tvShowsID = $tvShowsItem->id;
                  $tvShowsTitle = $tvShowsItem->name;
-                 $tvShowsRating = $tvShowsItem->vote_average * 1;
+                 $rating = number_format((float) ($tvShowsItem->vote_average * 1), 1);
+                 $vote = $tvShowsItem->vote_count;
                  $tvShowsImage = "{$imageBaseUrl}/w500{$tvShowsItem->poster_path}";
                  $tvShowsDesc = $tvShowsItem->overview;
              @endphp
@@ -32,12 +33,12 @@
                              <path
                                  d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                          </svg>
-                         <p class="ms-2 text-sm font-bold text-gray-900 dark:text-white">{{ $tvShowsRating }}
+                         <p class="ms-2 text-sm font-bold text-gray-900 dark:text-white">{{ $rating }}
                          </p>
                          <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
                          <a href="#"
                              class="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
-                             {{ $tvShowsRating }} reviews</a>
+                             {{ $vote}} reviews</a>
                      </div>
                      <div class="h-20">
                          <span class=" text-white line-clamp-2 py-2 text-base font-light leading-relaxed">

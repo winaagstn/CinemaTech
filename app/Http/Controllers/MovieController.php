@@ -8,95 +8,88 @@ use Illuminate\Support\facades\Http;
 
 class MovieController extends Controller
 {
-    public function index(){
-      $baseURL = env('MOVIE_DB_BASE_URL');
+    public function index()
+    {
+        $baseURL = env('MOVIE_DB_BASE_URL');
         $imageURL = env('MOVIE_DB_IMAGE_BASE_URL');
         $apiKey = env('MOVIE_DB_API_KEY');
 
-        try {
-            $bannerResponse = Http::get("{$baseURL}/movie/popular", [
-                'api_key' => $apiKey,
-            ]);
+        // Hit API for Popular Movies data
+        $bannerResponse = Http::get("{$baseURL}/movie/popular", [
+            'api_key' => $apiKey,
+        ]);
 
-            $bannerArray = [];
-            $MAX_BANNER = 3;
+        $bannerArray = [];
+        $MAX_BANNER = 3;
 
-            if ($bannerResponse->successful()) {
-                $resultArray = $bannerResponse->object()->results;
+        if ($bannerResponse->successful()) {
+            $resultArray = $bannerResponse->object()->results;
 
-                if (isset($resultArray)) {
-                    foreach ($resultArray as $item) {
-                        array_push($bannerArray, $item);
+            if (isset($resultArray)) {
+                foreach ($resultArray as $item) {
+                    array_push($bannerArray, $item);
 
-                        if (count($bannerArray) == $MAX_BANNER) {
-                            break;
-                        }
+                    if (count($bannerArray) == $MAX_BANNER) {
+                        break;
                     }
                 }
             }
-
-            $topMovieResponse = Http::get("{$baseURL}/movie/top_rated", [
-                'api_key' => $apiKey,
-            ]);
-
-            $topMovieArray = [];
-            $MAX_TOP_MOVIES = 10;
-
-            if ($topMovieResponse->successful()) {
-                $resultArray = $topMovieResponse->object()->results;
-
-                if (isset($resultArray)) {
-                    foreach ($resultArray as $item) {
-                        array_push($topMovieArray, $item);
-
-                  if (count ($topMovieArray) == $MAX_TOP_MOVIES ) {
-                    break ;
-
-                 }
-            }
-
         }
 
-// Hit API for Top 10 Movies data
-$topTVShowsResponse = Http::get("$baseURL/tv/top_rated", [
-    'api_key' => $apiKey,
-]);
-
-// Prepare variable
-$topTVShowsArray = [];
-$MAX_TV_SHOWS_ITEM=10;
-// Check API response and handle it
-if ($topTVShowsResponse->successful()) {
-    $resultArray = $topTVShowsResponse->object()->results;
-
-    // Check if results are not null
-    if (!empty($resultArray)) {
-        // Loop through response data
-        foreach ($resultArray as $item) {
-            // Save response data to our array variable
-            $topTVShowsArray[] = $item;
-
-            // Only save data based on our max config. Max 10 items
-            if (count($topTVShowsArray) == $MAX_TV_SHOWS_ITEM) {
-                break;
-            }
-        }
-    }
-}
-
-        return view('home',[
-            'baseURL' => $baseURL,
-            'imageBaseUrl'=>$imageURL,
-            'apiKey'=> $apiKey,
-            'banner'=> $bannerArray,
-            'topMovies'=> $topMovieArray,
-            'topTVShows'=> $topTVShowsArray
-
+        // Hit API for Top 10 Movies data
+        $topMovieResponse = Http::get("{$baseURL}/movie/top_rated", [
+            'api_key' => $apiKey,
         ]);
 
+        $topMovieArray = [];
+        $MAX_TOP_MOVIES = 10;
+
+        if ($topMovieResponse->successful()) {
+            $resultArray = $topMovieResponse->object()->results;
+
+            if (isset($resultArray)) {
+                foreach ($resultArray as $item) {
+                    array_push($topMovieArray, $item);
+
+                    if (count($topMovieArray) == $MAX_TOP_MOVIES) {
+                        break;
+                    }
+                }
+            }
         }
+
+        // Hit API for Top 10 TV Shows data
+        $topTVShowsResponse = Http::get("$baseURL/tv/top_rated", [
+            'api_key' => $apiKey,
+        ]);
+
+        $topTVShowsArray = [];
+        $MAX_TV_SHOWS_ITEM = 10;
+
+        if ($topTVShowsResponse->successful()) {
+            $resultArray = $topTVShowsResponse->object()->results;
+
+            if (!empty($resultArray)) {
+                foreach ($resultArray as $item) {
+                    $topTVShowsArray[] = $item;
+
+                    if (count($topTVShowsArray) == $MAX_TV_SHOWS_ITEM) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return view('home', [
+            'baseURL' => $baseURL,
+            'imageBaseUrl' => $imageURL,
+            'apiKey' => $apiKey,
+            'banner' => $bannerArray,
+            'topMovies' => $topMovieArray,
+            'topTVShows' => $topTVShowsArray,
+        ]);
     }
-  }
+  
 public function movies(Request $request) {
     $baseURL = env('MOVIE_DB_BASE_URL');
     $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
