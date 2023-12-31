@@ -1,4 +1,4 @@
-<nav class=" bg-white dark:bg-gray-900 sticky w-full z-20 top-0 start-0  drop-shadow-lg">
+<nav class="bg-white dark:bg-gray-900 sticky w-full z-20 top-0 start-0 drop-shadow-lg">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <svg width="300" height="61" viewBox="0 0 516 61" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,8 +21,24 @@
                     </linearGradient>
                 </defs>
             </svg>
-
         </a>
+
+        <!-- Search bar integration -->
+        <div
+            class="flex items-center border border-[color:var(--Grey-700,#323B54)] bg-black bg-opacity-10 gap-4 mx-3 pl-4 pr-10 py-3 rounded-xl border-solid max-md:pr-5">
+            <img loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4d395e56a6fdcbc2fbc71910ae25bf6a043efd97a4b5012eebbd8c8ee3923c19?"
+                class="aspect-square object-contain object-center w-4 justify-center items-center overflow-hidden shrink-0 max-w-full" />
+            <form action="{{ route('search.movies') }}" method="GET" class="flex-grow">
+                <input type="text" name="query"
+                    class="text-slate-600 text-sm leading-4 w-[200px] bg-transparent border-none"
+                    placeholder="Search movies" required />
+                <button type="submit" class="text-slate-600 text-sm leading-4 px-10">Search</button>
+            </form>
+        </div>
+
+
+
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button type="button"
                 class="text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 font-light font-montserrat rounded-full text-sm px-4 py-2 text-center "><a
@@ -69,11 +85,17 @@
                                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Top
                                     Box Office</a>
                             </li>
+                            <li>
+                                <a href="/movies"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    Movie List
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="/tvshows"
                         class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-violet-700 md:p-0"
                         aria-current="page">Tv Shows</a>
                 </li>

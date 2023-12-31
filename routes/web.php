@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\TvShowController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +17,15 @@ use App\Http\Controllers\MovieController;
 
 
 Route::get('/',[ MovieController::class,'index']);
+Route::get('/movies', [MovieController::class, 'movies'])->name('movies');
+Route::get('/sort-movies', 'MovieController@sortMovies')->name('sort.movies');
+
+Route::get('/search/movies', [MovieController::class, 'searchMovies'])->name('search.movies');
+
 Route::get('/movie/{id}',[ MovieController::class,'movieDetail']);
+
+Route::get('/tvshows', [TvShowController::class, 'tvshow'])->name('tvshow');
+Route::get('/tvshow/{id}',[ TvShowController::class,'tvDetail']);
 
 
 
