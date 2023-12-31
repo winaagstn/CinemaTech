@@ -1,11 +1,15 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Models\movie;
 use App\Models\genre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class MovieDashboardController extends Controller
 {
@@ -16,6 +20,13 @@ class MovieDashboardController extends Controller
     {
         $movie = movie::all();
         return view('dashboard.movie.index', ['movie' => $movie]);
+    }
+
+    public function cetak ()   {
+        $movie = movie::all();
+        $pdf = pdf::loadView('dashboard.movie.cetak', ['movie' => $movie]);
+        return $pdf->download('Export-movies-'.Carbon::now()->timestamp.'.pdf');
+        // return view('dashboard.movie.cetak', ['movie' => $movie]);
     }
 
     /**

@@ -40,14 +40,13 @@ Route::get('/tvshow/{id}',[ TvShowController::class,'tvDetail']);
 
 
 Route::resource('/dashboard/genre', GenreDashboardController::class);
-
-
 Route::resource('/dashboard/movie',MovieDashboardController::class );
+
+Route::get('/dashboard/movie/cetak', [MovieDashboardController::class, 'cetak'])->name('movie.cetak');
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware(['auth', 'verified'])->name('dashboard.index');
-
 
 
 Route::middleware('auth')->group(function () {
@@ -59,3 +58,5 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__.'/auth.php';
+
+
