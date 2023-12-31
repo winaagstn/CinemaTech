@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<div class="max-w-3xl max-h-96 bg-white rounded-lg shadow-lg p-4 ml-6 overflow-y-auto">
+<div class="max-w-3xl max-h-96 bg-white rounded-lg shadow-lg p-4 ml-6 ">
     <div class="ml-2">
         <p class="text-xl font-semibold mb-2">Overview :</p>
         <p class="text-lg">{{ $movie->overview }}</p>

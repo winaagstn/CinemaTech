@@ -13,7 +13,6 @@ class MovieController extends Controller
         $imageURL = env('MOVIE_DB_IMAGE_BASE_URL');
         $apiKey = env('MOVIE_DB_API_KEY');
 
-        try {
             $bannerResponse = Http::get("{$baseURL}/movie/popular", [
                 'api_key' => $apiKey,
             ]);
@@ -96,7 +95,7 @@ if ($topTVShowsResponse->successful()) {
 
         }
     }
-  }
+
 public function movies(Request $request) {
     $baseURL = env('MOVIE_DB_BASE_URL');
     $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
