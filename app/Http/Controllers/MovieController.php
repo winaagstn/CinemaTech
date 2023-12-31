@@ -14,10 +14,10 @@ class MovieController extends Controller
         $imageURL = env('MOVIE_DB_IMAGE_BASE_URL');
         $apiKey = env('MOVIE_DB_API_KEY');
 
-        // Hit API for Popular Movies data
-        $bannerResponse = Http::get("{$baseURL}/movie/popular", [
-            'api_key' => $apiKey,
-        ]);
+
+            $bannerResponse = Http::get("{$baseURL}/movie/popular", [
+                'api_key' => $apiKey,
+            ]);
 
         $bannerArray = [];
         $MAX_BANNER = 3;
@@ -89,7 +89,7 @@ class MovieController extends Controller
             'topTVShows' => $topTVShowsArray,
         ]);
     }
-  
+
 public function movies(Request $request) {
     $baseURL = env('MOVIE_DB_BASE_URL');
     $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
