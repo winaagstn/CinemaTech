@@ -37,6 +37,8 @@ Route::get('/tvshows', [TvShowController::class, 'tvshow'])->name('tvshow');
 Route::get('/tvshow/{id}',[ TvShowController::class,'tvDetail']);
 
 
+
+
 Route::resource('/dashboard/genre', GenreDashboardController::class);
 Route::resource('/dashboard/movie',MovieDashboardController::class );
 
