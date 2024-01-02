@@ -9,10 +9,13 @@
     <!-- Main Content Area -->
     <h2 class="text-2xl font-semibold mb-4">Movie</h2>
 
-    <div class="text-right mb-4">
+    <div class="text-right">
       <a href="{{ route('movie.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Tambah Data</a>
-  </div>
+      <a href="{{ route('movie.cetak') }}" target="_blank" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Export to PDF</a>
+    </div>
+    </button>
 
+    
     <!-- Data Table Section -->
     <div class="mt-8">
       <div class="bg-white shadow-md rounded-lg overflow-x-auto">
@@ -44,26 +47,28 @@
               <td class="border px-4 py-2">{{ $mv->genre->name}}</td>
               <td class="border px-4 py-2">{{ $mv->overview }}</td>
               <td class="border px-4 py-2" style="text-align: center;">
+
                 <div style="display: flex; justify-content: center; align-items: center;">
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                 <a href="{{ route('movie.show', $mv->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                    <span class="ml-2">Lihat</span>
-                 </a>
-                </button>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ">
-                  <a href="{{ route('movie.edit', $mv->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                    <span class="ml-2">Edit</span>
-                </a>
-              </button>
-              <form action="{{ route('movie.destroy', $mv->id) }}" method="POST" onsubmit="return confirm('Anda yakin ingin menghapus movie ini?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                    <span class="ml-2">Hapus</span>
-                </button>
-            </form>
-            
+
+                  <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 mx-1 rounded-full">
+                      <a href="{{ route('movie.show', $mv->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded-full">
+                          <span class="ml-1">Lihat</span>
+                       </a>
+                  </button>
+                  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 mx-1 rounded-full ">
+                      <a href="{{ route('movie.edit', $mv->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full">
+                          <span class="ml-1">Edit</span>
+                      </a>
+                  </button>
+                  <form action="{{ route('movie.destroy', $mv->id) }}" method="POST" onsubmit="return confirm('Anda yakin ingin menghapus movie ini?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 mx-1 rounded-full">
+                        <span class="ml-1">Hapus</span>
+                    </button>
+                </form>
               </div>
+
             </td>
             </tr>
             @endforeach
