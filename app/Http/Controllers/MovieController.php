@@ -3,241 +3,201 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\facades\Http;
-
+use Illuminate\Support\Facades\Http;
 
 class MovieController extends Controller
 {
-    public function index(){
-      $baseURL = env('MOVIE_DB_BASE_URL');
+    public function index()
+    {
+        $baseURL = env('MOVIE_DB_BASE_URL');
         $imageURL = env('MOVIE_DB_IMAGE_BASE_URL');
         $apiKey = env('MOVIE_DB_API_KEY');
 
-        try {
-            $bannerResponse = Http::get("{$baseURL}/movie/popular", [
-                'api_key' => $apiKey,
-            ]);
+        // Function to fetch data from TMDB API
+        $fetchData = function ($url, $maxItems) use ($baseURL, $apiKey) {
+            $response = Http::get("$baseURL/$url", ['api_key' => $apiKey]);
 
-            $bannerArray = [];
-            $MAX_BANNER = 3;
-
-            if ($bannerResponse->successful()) {
-                $resultArray = $bannerResponse->object()->results;
+            $dataArray = [];
+            if ($response->successful()) {
+                $resultArray = $response->object()->results;
 
                 if (isset($resultArray)) {
                     foreach ($resultArray as $item) {
-                        array_push($bannerArray, $item);
+                        $dataArray[] = $item;
 
-                        if (count($bannerArray) == $MAX_BANNER) {
+                        if (count($dataArray) == $maxItems) {
                             break;
                         }
                     }
                 }
             }
 
-            $topMovieResponse = Http::get("{$baseURL}/movie/top_rated", [
-                'api_key' => $apiKey,
-            ]);
+            return $dataArray;
+        };
 
-            $topMovieArray = [];
-            $MAX_TOP_MOVIES = 10;
+        // Fetch banners
+        $bannerArray = $fetchData('movie/popular', 3);
 
-            if ($topMovieResponse->successful()) {
-                $resultArray = $topMovieResponse->object()->results;
+        // Fetch top-rated movies
+        $topMovieArray = $fetchData('movie/top_rated', 10);
 
-                if (isset($resultArray)) {
-                    foreach ($resultArray as $item) {
-                        array_push($topMovieArray, $item);
+        // Fetch top-rated TV shows
+        $topTVShowsArray = $fetchData('tv/top_rated', 10);
 
-                  if (count ($topMovieArray) == $MAX_TOP_MOVIES ) {
-                    break ;
-
-                 }
-            }
-
-        }
-
-// Hit API for Top 10 Movies data
-$topTVShowsResponse = Http::get("$baseURL/tv/top_rated", [
-    'api_key' => $apiKey,
-]);
-
-// Prepare variable
-$topTVShowsArray = [];
-$MAX_TV_SHOWS_ITEM=10;
-// Check API response and handle it
-if ($topTVShowsResponse->successful()) {
-    $resultArray = $topTVShowsResponse->object()->results;
-
-    // Check if results are not null
-    if (!empty($resultArray)) {
-        // Loop through response data
-        foreach ($resultArray as $item) {
-            // Save response data to our array variable
-            $topTVShowsArray[] = $item;
-
-            // Only save data based on our max config. Max 10 items
-            if (count($topTVShowsArray) == $MAX_TV_SHOWS_ITEM) {
-                break;
-            }
-        }
-    }
-}
-
-        return view('home',[
+        return view('home', [
             'baseURL' => $baseURL,
-            'imageBaseUrl'=>$imageURL,
-            'apiKey'=> $apiKey,
-            'banner'=> $bannerArray,
-            'topMovies'=> $topMovieArray,
-            'topTVShows'=> $topTVShowsArray
+            'imageBaseUrl' => $imageURL,
+            'apiKey' => $apiKey,
+            'banner' => $bannerArray,
+            'topMovies' => $topMovieArray,
+            'topTVShows' => $topTVShowsArray,
+        ]);
+    }
 
+    public function movies(Request $request)
+    {
+        $baseURL = env('MOVIE_DB_BASE_URL');
+        $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
+        $apiKey = env('MOVIE_DB_API_KEY');
+        $sortBy = 'popularity.desc';
+        $minimalVoter = 40;
+        $page = $request->query('page', 1);
+
+        // Hit API data
+        $movieResponse = Http::get("$baseURL/discover/movie", [
+            'api_key' => $apiKey,
+            'sort_by' => $sortBy,
+            'vote_count.gte' => $minimalVoter,
+            'page' => $page,
         ]);
 
+        // Prepare variable
+        $movieArray = [];
+
+        // Check API response and handle it
+        if ($movieResponse->successful()) {
+            $resultArray = $movieResponse->object()->results;
+
+            // Check if results are not null
+            if (!empty($resultArray)) {
+                // Save response data to our array variable
+                $movieArray = $resultArray;
+            }
         }
-    }
-  }
-public function movies(Request $request) {
-    $baseURL = env('MOVIE_DB_BASE_URL');
-    $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
-    $apiKey = env('MOVIE_DB_API_KEY');
-    $sortBy = 'popularity.desc';
-    $minimalVoter = 40;
-    $page = $request->query('page', 1);
 
-    // Hit API data
-    $movieResponse = Http::get("$baseURL/discover/movie", [
-        'api_key' => $apiKey,
-        'sort_by' => $sortBy,
-        'vote_count.gte' => $minimalVoter,
-        'page' => $page,
-    ]);
-
-    // Prepare variable
-    $movieArray = [];
-
-    // Check API response and handle it
-    if ($movieResponse->successful()) {
-        $resultArray = $movieResponse->object()->results;
-
-        // Check if results are not null
-        if (!empty($resultArray)) {
-            // Save response data to our array variable
-            $movieArray = $resultArray;
-        }
+        // Pass the movieArray and page to the view
+        return view('movies', [
+            'baseURL' => $baseURL,
+            'imageBaseURL' => $imageBaseURL,
+            'apiKey' => $apiKey,
+            'movies' => $movieArray,
+            'sortBy' => $sortBy,
+            'page' => $page,
+            'minimalVoter' => $minimalVoter,
+        ]);
     }
 
-    // Pass the movieArray and page to the view
-    return view('movies', [
-        'baseURL' => $baseURL,
-        'imageBaseURL' => $imageBaseURL,
-        'apiKey' => $apiKey,
-        'movies' => $movieArray,
-        'sortBy' => $sortBy,
-        'page' => $page,
-        'minimalVoter' => $minimalVoter,
-    ]);
-}
-public function sortMovies(Request $request) {
-    $baseURL = env('MOVIE_DB_BASE_URL');
-    $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
-    $apiKey = env('MOVIE_DB_API_KEY');
-    $minimalVoter = 40;
-    $page = $request->query('page', 1);
-    $sortBy = $request->query('sortBy', 'popularity.desc');
+    public function sortMovies(Request $request)
+    {
+        $baseURL = env('MOVIE_DB_BASE_URL');
+        $imageBaseURL = env('MOVIE_DB_IMAGE_BASE_URL');
+        $apiKey = env('MOVIE_DB_API_KEY');
+        $minimalVoter = 40;
+        $page = $request->query('page', 1);
+        $sortBy = $request->query('sortBy', 'popularity.desc');
 
-    // Hit API data
-    $movieResponse = Http::get("$baseURL/discover/movie", [
-        'api_key' => $apiKey,
-        'sort_by' => $sortBy,
-        'vote_count.gte' => $minimalVoter,
-        'page' => $page,
-    ]);
+        // Hit API data
+        $movieResponse = Http::get("$baseURL/discover/movie", [
+            'api_key' => $apiKey,
+            'sort_by' => $sortBy,
+            'vote_count.gte' => $minimalVoter,
+            'page' => $page,
+        ]);
 
-    // Prepare variable
-    $movieArray = [];
+        // Prepare variable
+        $movieArray = [];
 
-    // Check API response and handle it
-    if ($movieResponse->successful()) {
-        $resultArray = $movieResponse->object()->results;
+        // Check API response and handle it
+        if ($movieResponse->successful()) {
+            $resultArray = $movieResponse->object()->results;
 
-        // Check if results are not null
-        if (!empty($resultArray)) {
-            // Save response data to our array variable
-            $movieArray = $resultArray;
+            // Check if results are not null
+            if (!empty($resultArray)) {
+                // Save response data to our array variable
+                $movieArray = $resultArray;
+            }
         }
+
+        // Pass the movieArray and page to the view
+        return view('partials.movie_list', [
+            'baseURL' => $baseURL,
+            'imageBaseURL' => $imageBaseURL,
+            'apiKey' => $apiKey,
+            'movies' => $movieArray,
+            'sortBy' => $sortBy,
+            'page' => $page,
+            'minimalVoter' => $minimalVoter,
+        ]);
     }
 
-    // Pass the movieArray and page to the view
-    return view('partials.movie_list', [
-        'baseURL' => $baseURL,
-        'imageBaseURL' => $imageBaseURL,
-        'apiKey' => $apiKey,
-        'movies' => $movieArray,
-        'sortBy' => $sortBy,
-        'page' => $page,
-        'minimalVoter' => $minimalVoter,
-    ]);
-}
-public function searchMovies(Request $request)
-{
-    $baseURL = env('MOVIE_DB_BASE_URL');
-    $imageURL = env('MOVIE_DB_IMAGE_BASE_URL');
-    $apiKey = env('MOVIE_DB_API_KEY');
+    public function searchMovies(Request $request)
+    {
+        $baseURL = env('MOVIE_DB_BASE_URL');
+        $imageURL = env('MOVIE_DB_IMAGE_BASE_URL');
+        $apiKey = env('MOVIE_DB_API_KEY');
 
-    $query = $request->input('query');
+        $query = $request->input('query');
 
-    // Hit API for search results
-    $searchResponse = Http::get("$baseURL/search/movie", [
-        'api_key' => $apiKey,
-        'query' => $query,
-    ]);
+        // Hit API for search results
+        $searchResponse = Http::get("$baseURL/search/movie", [
+            'api_key' => $apiKey,
+            'query' => $query,
+        ]);
 
-    // Prepare variable
-    $searchResults = [];
+        // Prepare variable
+        $searchResults = [];
 
-    // Check API response and handle it
-    if ($searchResponse->successful()) {
-        $resultArray = $searchResponse->object()->results;
+        // Check API response and handle it
+        if ($searchResponse->successful()) {
+            $resultArray = $searchResponse->object()->results;
 
-        // Check if results are not null
-        if (!empty($resultArray)) {
-            // Save response data to our array variable
-            $searchResults = $resultArray;
+            // Check if results are not null
+            if (!empty($resultArray)) {
+                // Save response data to our array variable
+                $searchResults = $resultArray;
+            }
         }
+
+        return view('search', [
+            'baseURL' => $baseURL,
+            'imageBaseURL' => $imageURL,
+            'apiKey' => $apiKey,
+            'query' => $query,
+            'searchResults' => $searchResults,
+        ]);
     }
 
-    return view('search', [
-        'baseURL' => $baseURL,
-        'imageBaseURL' => $imageURL,
-        'apiKey' => $apiKey,
-        'query' => $query,
-        'searchResults' => $searchResults,
-    ]);
-}
+    public function movieDetail($id)
+    {
+        $baseURL = env('MOVIE_DB_BASE_URL');
+        $imageURL = env('MOVIE_DB_IMAGE_BASE_URL');
+        $apiKey = env('MOVIE_DB_API_KEY');
 
-  public function movieDetail($id){
-         $baseURL = env ('MOVIE_DB_BASE_URL');
-        $imageURL = env ('MOVIE_DB_IMAGE_BASE_URL');
-        $apiKey = env ('MOVIE_DB_API_KEY');
+        $response = Http::get("{$baseURL}/movie/{$id}", [
+            'api_key' => $apiKey,
+            'append_to_response' => 'videos',
+        ]);
+        $movieData = null;
 
-         $response = Http::get("{$baseURL}/movie/{$id}",[
-                'api_key' => $apiKey,
-                'append_to_response'=> 'videos'
+        if ($response->successful()) {
+            $movieData = $response->object();
+        }
 
-              ]);
-              $movieData = null;
-          if($response->successful()){
-                $movieData = $response->object();
-
-          }
-
-        return view('movie',[
-            'baseURL' =>$baseURL,
-            'ImageBaseURL'=>$imageURL,
-            'apiKey'=> $apiKey,
-            'movieData' => $movieData
-         ]);
-
-  }
+        return view('movie', [
+            'baseURL' => $baseURL,
+            'ImageBaseURL' => $imageURL,
+            'apiKey' => $apiKey,
+            'movieData' => $movieData,
+        ]);
+    }
 }
