@@ -5,9 +5,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\TvShowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MovieDashboardController;
-use App\Http\Controllers\TvDashboardController;
 use App\Http\Controllers\GenreDashboardController;
-use App\Http\Controllers\RatingDashboardController;
 use App\Models\movie;
 use App\Http\Controllers\MoviePDFController;
 
@@ -42,7 +40,8 @@ Route::get('/tvshow/{id}',[ TvShowController::class,'tvDetail']);
 Route::resource('/dashboard/genre', GenreDashboardController::class);
 Route::resource('/dashboard/movie',MovieDashboardController::class );
 
-Route::get('/cetak', [MovieDashboardController::class, 'cetak']);
+Route::get('dashboard/movie/cetak', [MovieDashboardController::class,'cetak'])->name('movie.cetak');
+
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware(['auth', 'verified'])->name('dashboard.index');
